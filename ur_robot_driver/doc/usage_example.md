@@ -91,6 +91,8 @@ roslaunch ur_robot_driver example_rviz.launch
 This should open up an RViz window showing the robot. Try moving around the robot's joints using the
 teach panel and watch how it also moves inside ROS.
 
+![RViz window](resources/usage_example/rviz.png "RViz window showing a UR5 robot")
+
 ## Control the robot
 For controlling the robot you'll need a special program running on the robot that will interpret and
 execute the commands coming from ROS. This can be either done by installing the **External Control**
@@ -107,7 +109,56 @@ entry](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/blob/maste
 if you experience problems in this step.
 
 ### Control the robot using the `test_move` script
-to be written...
+Once you've setup the robot for getting controlled by ROS, you can move it around using the
+[`test_move`](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/blob/master/ur_robot_driver/scripts/test_move) script.
+
+Start the driver and an RViz window as before. Then, in a third terminal run
+
+```
+rosrun ur_robot_driver tes_move
+```
+
+This script will guide you through the different trajectory controllers available. For informations
+about the different controllers, please see [TODO: Change once merged #423](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/pull/423).
+
+It will first ask about the controller to be used:
+
+```
+Available trajectory controllers:
+0 (joint-based): scaled_pos_joint_traj_controller
+1 (joint-based): scaled_vel_joint_traj_controller
+2 (joint-based): pos_joint_traj_controller
+3 (joint-based): vel_joint_traj_controller
+4 (joint-based): forward_joint_traj_controller
+5 (Cartesian): pose_based_cartesian_traj_controller
+6 (Cartesian): joint_based_cartesian_traj_controller
+7 (Cartesian): forward_cartesian_traj_controller
+Please choose a controller by entering its number (Enter '0' if you are unsure / don't care): 0
+```
+
+After that, you'll have to confirm that the motions the robot is about to make, can safely be
+executed the way your robot is mounted. If you're running a simulated robot, you can confirm this
+without thinking twice. However, if a real robot is connected, please make sure that the robot is
+actually free of any obstacles inside the space where the motion is taking place. See the images
+below for a visualization of the setpoints:
+
+**Joint-based motions**: (The cable leaving the base to the back on an e-Series robot)
+![joint_based pose 1](resources/usage_example/joint_based_motion_1.png "Pose one of joint-based motion")
+![joint_based pose 2](resources/usage_example/joint_based_motion_2.png "Pose two of joint-based motion")
+![joint_based pose 3](resources/usage_example/joint_based_motion_3.png "Pose three of joint-based motion")
+
+**Cartesian motions**: (The cable leaving the base to the back on an e-Series robot)
+**Please note: Depending on your starting configuration there might also be a valid elbow-down
+configuration for each of the poses!**
+
+![cartesian pose 1](resources/usage_example/cartesian_motion_1.png "Pose one of Cartesian motion")
+![cartesian pose 2](resources/usage_example/cartesian_motion_2.png "Pose two of Cartesian motion")
+![cartesian pose 3](resources/usage_example/cartesian_motion_3.png "Pose three of Cartesian motion")
+![cartesian pose 4](resources/usage_example/cartesian_motion_4.png "Pose four of Cartesian motion")
+![cartesian pose 5](resources/usage_example/cartesian_motion_5.png "Pose five of Cartesian motion")
+
+You can play around by changing the trajectories inside the python code, if you like. You can also
+setup velocities in each waypoint to get a smooth motion through all waypoints.
 
 ### Control the robot using MoveIt!
 to be written...
