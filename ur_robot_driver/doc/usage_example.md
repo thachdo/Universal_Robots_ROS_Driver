@@ -161,5 +161,44 @@ You can play around by changing the trajectories inside the python code, if you 
 setup velocities in each waypoint to get a smooth motion through all waypoints.
 
 ### Control the robot using MoveIt!
-to be written...
+For controlling the robot using MoveIt! start the following three launch files (Each in one terminal
+window):
 
+```
+roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=192.168.56.101
+```
+
+```
+roslaunch ur5e_moveit_config ur5e_moveit_planning_execution.launch
+```
+
+```
+roslaunch ur5e_moveit_config moveit_rviz.launch rviz_config:=$(rospack find ur5e_moveit_config)/launch/moveit.rviz
+```
+
+You should get an RViz window showing the robot overlayed with an orange version of the robot:
+
+![MoveIt RViz window](resources/usage_example/moveit_1.png "Moveit RViz window after startup")
+
+You can change the tcp target by dragging around the blue ball. The orange robot will show the
+configuration used to reach the target pose.
+
+
+![MoveIt RViz window planning](resources/usage_example/moveit_2.png "Moveit RViz window showing planning result")
+
+By clicking on the `Plan` button in the left panel a path from the current pose to the target pose
+is calculated. On success, it gets animated using a semi-transparent version of the robot:
+
+
+![MoveIt RViz window path](resources/usage_example/moveit_3.png "Moveit RViz window showing planned path")
+
+By clicking on the `Execute` button in the left panel the robot executes the planned motion:
+
+
+![MoveIt RViz window execution](resources/usage_example/moveit_4.png "Moveit RViz window showing planned path execution")
+
+In a real-world application you would not use the `ur5e_moveit_config` package but create your own
+moveit configuration matching your actual workcell with all obstacles and sensors. See the
+[setup_assistant
+tutorial](https://ros-planning.github.io/moveit_tutorials/doc/setup_assistant/setup_assistant_tutorial.html)
+for more information on that.
