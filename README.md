@@ -112,6 +112,10 @@ using the latest upstream develop branch of
 [ros_industrial/universal_robot](https://github.com/ros-industrial/universal_robot) which includes
 gazebo support for the ur16e, but no working MoveIt! support at the time of writing.
 
+## dependencies:
+```
+sudo apt install ros-$ROS_DISTRO-ur-client-library
+```
 ## Building
 
 **Note:** The driver consists of a [C++
